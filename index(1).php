@@ -1,70 +1,58 @@
 <?php 
-include 'header.php';
-?>
-<!-- IMAGE -->
-<div class="container-fluid" style="margin: 0;padding: 0;">
-	<div class="image" style="margin-top: -21px">
-		<img src="image/home/1.jpg" style="width: 100%; height: auto; max-height: 650px; object-fit: cover;">
-	</div>
+  session_start();
+  if(isset($_SESSION['admin'])){
+  header('location:halaman_utama.php');
+}
+
+ ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Backery</title>
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.css">
+	<script  src="../js/jquery.js"></script>
+	<script  src="../js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+  <script type="text/javascript">
+       alert('SEKEDAR MEMBERI INFORMASI KEPADA PAK BAMABANG UNTUK LOGIN ADMIN \n \n Username = admin \n Password = admin');
+  </script>
+  <script type="text/javascript">
+    $( document ).ready(function() {
+     $( "#target" ).click();
+   });
+ </script>
+
+ <input  type="hidden" class="btn btn-primary" id="target" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">
+
+ <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">LOGIN ADMIN</h4>
+      </div>
+      <div class="modal-body">
+        <form action="proses/login.php" method="POST">
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">username</label>
+            <input type="text" class="form-control"  placeholder="Username" name="user" autofocus autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">Password</label>
+            <input type="password" class="form-control"  placeholder="Password" name="pass" autocomplete="off">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-warning">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
-<br>
-<br>
-
-<!-- PRODUK TERBARU -->
-<div class="container">
-
-
-		<h4 class="text-center" style="font-family: arial; padding-top: 10px; padding-bottom: 10px; font-style: italic; line-height: 29px; border-top: 2px solid #ff8d87; border-bottom: 2px solid #ff8d87;">Rapi Cake & Bakery adalah salah satu pelopor pertama dalam bisnis roti modern di Indonesia. Didirikan pada tahun 1978,  saat ini dikelola di bawah PT. Mustika Citra Rasa. Produk kami sehat, bergizi, dan terjangkau oleh semua orang.</h4>
-
-
-	<h2 style=" width: 100%; border-bottom: 4px solid #ff8680; margin-top: 80px;"><b>Produk Kami</b></h2>
-
-	<div class="row">
-		<?php 
-		$result = mysqli_query($conn, "SELECT * FROM produk");
-		while ($row = mysqli_fetch_assoc($result)) {
-			?>
-			<div class="col-sm-6 col-md-4">
-				<div class="thumbnail">
-					<img src="image/produk/<?= $row['image']; ?>" style="width: 100%; height: 200px; object-fit: cover;">
-					<div class="caption">
-						<h3><?= $row['nama'];  ?></h3>
-						<h4>Rp.<?= number_format($row['harga']); ?></h4>
-						<div class="row">
-							<div class="col-md-6">
-								<a href="detail_produk.php?produk=<?= $row['kode_produk']; ?>" class="btn btn-warning btn-block">Detail</a> 
-							</div>
-							<?php if(isset($_SESSION['kd_cs'])){ ?>
-								<div class="col-md-6">
-									<a href="proses/add.php?produk=<?= $row['kode_produk']; ?>&kd_cs=<?= $kode_cs; ?>&hal=1" class="btn btn-success btn-block" role="button"><i class="glyphicon glyphicon-shopping-cart"></i> Tambah</a>
-								</div>
-								<?php 
-							}
-							else{
-								?>
-								<div class="col-md-6">
-									<a href="keranjang.php" class="btn btn-success btn-block" role="button"><i class="glyphicon glyphicon-shopping-cart"></i> Tambah</a>
-								</div>
-
-								<?php 
-							}
-							?>
-
-						</div>
-
-					</div>
-				</div>
-			</div>
-			<?php 
-		}
-		?>
-	</div>
-
-</div>
-<br>
-<br>
-<br>
-<br>
-<?php 
-include 'footer.php';
-?>
+</body>
+</html>
